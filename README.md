@@ -1,1 +1,1 @@
-Team Members: Timothy Lau, Asa Adomatis
+Team Members: Timothy Lau, Asa Adomatis, Luke Jordan
