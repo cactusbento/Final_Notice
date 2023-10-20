@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f2d838436f43044d9e6187e49b61cac, type: 3}
+  m_Name: CrossAttack
+  m_EditorClassIdentifier: 
+  origin: {x: 0, y: 0, z: 0}
+  originIsRelative: 1
+  numBullets: 4
+  spreadSize: 360
+  accuracy: 1
+  projectile: {fileID: 8226378557746324018, guid: 5771981fe5f46c34b9eed5a4629280a5, type: 3}
+  moveDuration: 0
+  maxSpeed: 0
+  moveLocation: {x: 0, y: 0, z: 0}
+  spriteRender: {fileID: 0}
