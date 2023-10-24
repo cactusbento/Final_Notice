@@ -7,4 +7,6 @@ public class Enemy : ScriptableObject
 {
     [SerializeField] float health;
     [SerializeField] List<EnemyAction> actions;
+    float nextTimeToFire;
+
 }

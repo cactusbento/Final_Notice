@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     List<Collider2D> parryColliderOverlaps;
     Collider2D parryTarget;
     Rigidbody2D parryTargetRb;
+    ProjectileController parryTargetPC;
     float minDistance;
     float distance;
 
@@ -93,6 +94,26 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Parry.");
 
+        parryTarget = null;
+        ColliderFindParryTarget();
+
+        if (parryTarget.gameObject.TryGetComponent<ProjectileController>(out parryTargetPC))
+        {
+            parryTargetPC.ChangeDirection(reticleContainer.up);
+        }
+        else if (parryTarget.gameObject.TryGetComponent<Rigidbody2D>(out parryTargetRb))
+        {
+            parryTargetRb.AddForce(reticleContainer.up * parryStrength);
+        }
+        else
+        {
+            Debug.LogError(gameObject.name + "'s parryTarget, " +
+                parryTarget.gameObject.name + " has no rigidbody or projectile container");
+        }
+    }
+
+    void ColliderFindParryTarget()
+    {
         parryColliderOverlaps.Clear();
         parryCollider.OverlapCollider(new ContactFilter2D().NoFilter(), parryColliderOverlaps);
 
@@ -121,13 +142,19 @@ public class PlayerController : MonoBehaviour
             {
                 parryTarget = parryColliderOverlaps.Find(col => Vector3.Distance(col.transform.position, transform.position) == minDistance);
                 Debug.Log("parryTarget: " + parryTarget.transform.name);
-
-                if(parryTarget.gameObject.TryGetComponent<Rigidbody2D>(out parryTargetRb))
-                {
-                    parryTargetRb.AddForce(reticleContainer.up * parryStrength);
-                }
             }
         }
+    }
+
+    void RaycastFindParryTarget()
+    {
+        /*
+         * TODO:
+         * 
+         * firing multiple raycasts through the parry cone may be a better 
+         * implementation than collider based detection
+         */
+        hit = Physics2D.Raycast(transform.positon, reticleContainer.up, parryRange);
     }
 
     bool IsParryableObject(Collider2D col)
