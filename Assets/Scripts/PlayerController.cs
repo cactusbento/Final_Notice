@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ability")]
     [SerializeField] float abilityRate = 4f;
+    [SerializeField] Relic relic;
 
     bool abilityInput;
     float nextTimeToAbility;
@@ -97,18 +98,21 @@ public class PlayerController : MonoBehaviour
         parryTarget = null;
         ColliderFindParryTarget();
 
-        if (parryTarget.gameObject.TryGetComponent<ProjectileController>(out parryTargetPC))
-        {
-            parryTargetPC.ChangeDirection(reticleContainer.up);
-        }
-        else if (parryTarget.gameObject.TryGetComponent<Rigidbody2D>(out parryTargetRb))
-        {
-            parryTargetRb.AddForce(reticleContainer.up * parryStrength);
-        }
-        else
-        {
-            Debug.LogError(gameObject.name + "'s parryTarget, " +
-                parryTarget.gameObject.name + " has no rigidbody or projectile container");
+        if (parryTarget)
+        { 
+            if (parryTarget.gameObject.TryGetComponent<ProjectileController>(out parryTargetPC))
+            {
+                parryTargetPC.ChangeDirection(reticleContainer.up);
+            }
+            else if (parryTarget.gameObject.TryGetComponent<Rigidbody2D>(out parryTargetRb))
+            {
+                parryTargetRb.AddForce(reticleContainer.up * parryStrength);
+            }
+            else
+            {
+                Debug.LogError(gameObject.name + "'s parryTarget, " +
+                    parryTarget.gameObject.name + " has no rigidbody or projectile container");
+            }
         }
     }
 
@@ -154,7 +158,7 @@ public class PlayerController : MonoBehaviour
          * firing multiple raycasts through the parry cone may be a better 
          * implementation than collider based detection
          */
-        hit = Physics2D.Raycast(transform.positon, reticleContainer.up, parryRange);
+        hit = Physics2D.Raycast(transform.position, reticleContainer.up, parryRange);
     }
 
     bool IsParryableObject(Collider2D col)
@@ -187,6 +191,7 @@ public class PlayerController : MonoBehaviour
     void Ability()
     {
         Debug.Log("Ability used.");
+        relic.Use();
     }
 
     void OnDrawGizmos()
