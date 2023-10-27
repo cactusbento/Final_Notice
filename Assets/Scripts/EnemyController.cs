@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class EnemyController : MonoBehaviour
 {
-    [SerializeField] float health = 100f;
-    [SerializeField] List<EnemyAction> actions;
+    [SerializeField] public float health = 100f;
+    [SerializeField] public List<EnemyAction> enemyActions;
 
     Vector3 GetTarget(float maxRange, bool isPredictive)
     {

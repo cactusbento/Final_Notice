@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GooberHeadController : EnemyController
 {
+    private float elapsedTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,11 @@ public class GooberHeadController : EnemyController
     // Update is called once per frame
     void Update()
     {
-        
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime > 3)
+        {
+            elapsedTime = 0;
+            enemyActions[0].Use(transform);
+        }
     }
 }
