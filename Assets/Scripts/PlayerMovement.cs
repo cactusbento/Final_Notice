@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     void MoveFn() {
         float x_scale = Input.GetAxis("Horizontal");
         float y_scale = Input.GetAxis("Vertical");
-        float dt = Time.deltaTime;
+        float dt = Time.fixedDeltaTime;
 
         transform.Translate(
             x_scale * dt * speed,
