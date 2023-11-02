@@ -5,23 +5,32 @@ using UnityEngine;
 public abstract class EnemyAction : ScriptableObject
 {
     [Header("Attack")]
-    [SerializeField] public Vector3 origin;
+    [SerializeField] public Vector3 origin = Vector3.zero;
     [SerializeField, Range(0f, 360)] public float spreadSize = 360;
-    [SerializeField, Range(0f, 1f)] public float accuracy;
+    [SerializeField, Range(0f, 1f)] public float accuracy = 1;
     // must be gameobjects with the projectile component
     [SerializeField] public List<GameObject> projectiles;
     
 
     [Header("Movement")]
-    [SerializeField] public float moveDuration;
-    [SerializeField] public float maxSpeed;
-    [SerializeField] public Vector3 moveLocation;
+    [SerializeField] public float moveDuration = 0;
+    [SerializeField] public float maxSpeed = 0;
+    [SerializeField] public Vector3 moveLocation = Vector3.zero;
 
     [Header("General")]
-    [SerializeField] public float ActionDuration;
+    [SerializeField] public float duration = 0;
+    [SerializeField] public float cooldown = 0;
+
+    public enum ActionState 
+    {
+        Active,
+        Ready,
+        CoolDown
+    }
+    public ActionState state = ActionState.Ready;
 
     // desc: Activates/Uses the action
-    public abstract void Use(Transform parent);
+    public abstract IEnumerator Use(Transform parent);
 
     public void SpawnProjectile(GameObject projectile, Transform t)
     {

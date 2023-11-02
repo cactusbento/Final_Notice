@@ -155,7 +155,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   enemyActions:
+  - {fileID: 11400000, guid: aac12ab15dde4e542bc7beba4d428c48, type: 2}
   - {fileID: 11400000, guid: ae3f9ed782d2b38468093adb1d1e525c, type: 2}
+  ActionToTest: 0
 --- !u!212 &249224324
 SpriteRenderer:
   m_ObjectHideFlags: 0

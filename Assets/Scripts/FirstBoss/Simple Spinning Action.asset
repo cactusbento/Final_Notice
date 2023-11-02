@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faa29818608ec9047ac2d78ee59fce6d, type: 3}
-  m_Name: Simple Radial
+  m_Script: {fileID: 11500000, guid: cb751b7c34d52a34ea2411b8de233c62, type: 3}
+  m_Name: Simple Spinning Action
   m_EditorClassIdentifier: 
   origin: {x: 0, y: 0, z: 0}
   spreadSize: 360
@@ -22,6 +22,8 @@ MonoBehaviour:
   moveDuration: 0
   maxSpeed: 0
   moveLocation: {x: 0, y: 0, z: 0}
-  duration: 5
+  duration: 1
   cooldown: 0
   state: 1
+  shotsPerSecond: 2
+  degreeChangePerShot: 30

@@ -7,7 +7,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class SimpleRadialAction : EnemyAction
 {
-    public override void Use(Transform parent)
+    public override IEnumerator Use(Transform parent)
     {
         origin = parent.position;
         float degreeIncrement = 360 / projectiles.Count;
@@ -28,5 +28,6 @@ public class SimpleRadialAction : EnemyAction
                 Debug.LogError($"Projectile on {parent.name} is not a real projectile");
             }
         }
+        yield break;
     }
 }

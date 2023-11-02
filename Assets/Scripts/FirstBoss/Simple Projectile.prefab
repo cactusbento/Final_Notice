@@ -98,9 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  direction: {x: 0, y: 0, z: 0}
+  direction: {x: 0.86602545, y: -0.4999999, z: 0}
   hasMaxDuration: 1
   hasMaxDistance: 1
-  maxDuration: 1
-  maxDistance: 5
+  maxDuration: 10
+  maxDistance: 10
   speed: 0.01
