@@ -16,7 +16,6 @@ using UnityEngine.UI;
 public class ScaleTitle : MonoBehaviour
 {
     RectTransform rt;
-
     public float maxHeightRatio = 0.3f;
     public float maxWidthRatio = 0.9f;
     // Start is called before the first frame update
@@ -28,9 +27,10 @@ public class ScaleTitle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RectTransform rt_p = this.transform.parent.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2 (
-            maxWidthRatio * Screen.width,
-            maxHeightRatio * Screen.height
+            rt_p.rect.width * maxWidthRatio,
+            rt_p.rect.height * maxHeightRatio
         );
     }
 }
