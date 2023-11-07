@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class StartMenu_Instructions : MonoBehaviour
 {
+    /// <summary>
+    /// Should be controlled by multiplayer component to determin
+    /// How many players are ready.
+    /// </summary>
     public int playersReady = 0;
 
     /// <summary>
@@ -13,18 +17,23 @@ public class StartMenu_Instructions : MonoBehaviour
     /// </summary>
     public int maxPlayers = 4;
 
+    public bool isReady = false;
+
+    TextMeshProUGUI tmp;
     // Start is called before the first frame update
     void Start()
     {
+        tmp = this.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        TextMeshProUGUI tmp = this.GetComponent<TextMeshProUGUI>();
         string instructionString = "Press Start to Ready";
+        isReady = false;
         if (playersReady >= maxPlayers) {
             instructionString = "Press Start to Begin";
+            isReady = true;
         }
         tmp.text = string.Format("{0}\n{1:0}/{2:0} Ready", instructionString, playersReady, maxPlayers);
     }
