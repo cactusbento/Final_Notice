@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartMenu_Instructions : MonoBehaviour
 {
@@ -31,9 +32,20 @@ public class StartMenu_Instructions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.Alpha0)){
+            playersReady += 1;
+        }
+        if (isReady) {
+            if (Input.GetKeyDown(KeyCode.JoystickButton7) || 
+                Input.GetKeyDown(KeyCode.Space)) {
+                    SceneManager.LoadScene("SampleScene");
+                }
+        }
+
         int numControllers = Input.GetJoystickNames().Length;
         maxPlayers = (numControllers < 1) ? 1 : numControllers;
-        string instructionString = "Press Start to Ready";
+        string instructionString = "Press Start to Ready Up";
         isReady = false;
         if (playersReady >= maxPlayers) {
             instructionString = "Press Start to Begin";
