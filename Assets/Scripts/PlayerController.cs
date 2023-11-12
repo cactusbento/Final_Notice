@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
-{  
+{
+    [Header("Stats")]
+    [SerializeField] float currentHealth;
+    [SerializeField] float maxHealth = 10f;
+
     [Header("Movement")]
     [SerializeField] float acceleration = 1f;
     [SerializeField] float deccelerationScalar = 1f;
@@ -48,6 +53,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentHealth = maxHealth;
+
         rb = transform.GetComponent<Rigidbody2D>();
 
         parryCollider.radius = parryRange;
@@ -161,6 +168,7 @@ public class PlayerController : MonoBehaviour
         hit = Physics2D.Raycast(transform.position, reticleContainer.up, parryRange);
     }
 
+    //account for players, enemies, and parryable projectile
     bool IsParryableObject(Collider2D col)
     {
         return col.gameObject.GetInstanceID() != gameObject.GetInstanceID();
@@ -192,6 +200,29 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Ability used.");
         relic.Use();
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealthHealth -= damage;
+        if(currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Heal(float heal)
+    {
+        curentHealth += damage;
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log($"Player died ({gameObject.name})");
     }
 
     void OnDrawGizmos()
