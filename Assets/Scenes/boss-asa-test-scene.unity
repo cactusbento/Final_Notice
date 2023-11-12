@@ -160,13 +160,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 100
-  pushable: 1
+  pushable: 0
   enemyActions:
   - {fileID: 11400000, guid: aac12ab15dde4e542bc7beba4d428c48, type: 2}
   - {fileID: 11400000, guid: ae3f9ed782d2b38468093adb1d1e525c, type: 2}
   - {fileID: 11400000, guid: fd57452fdbacda849adf2e952641161b, type: 2}
   - {fileID: 11400000, guid: e568cc9302f17cd46baf16059d59ec31, type: 2}
-  actionsToTest: 00000000
+  actionsToTest: 
   waitBeforeAction: 2
 --- !u!212 &249224324
 SpriteRenderer:
