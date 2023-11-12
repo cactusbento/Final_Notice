@@ -5,7 +5,10 @@ using UnityEngine;
 public class GooberHeadController : EnemyController
 {
     private float elapsedTime = 0;
-    [SerializeField] public int ActionToTest = 0;
+
+    [Header("Test Values")]
+    [SerializeField] public int[] actionsToTest;
+    [SerializeField] public float waitBeforeAction = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,20 +22,17 @@ public class GooberHeadController : EnemyController
     void Update()
     {
         elapsedTime += Time.deltaTime;
-        if (elapsedTime > 10)
+        if (elapsedTime > waitBeforeAction)
         {
             elapsedTime = 0;
-            Debug.Log($"Action State = {enemyActions[ActionToTest].state}");
-            if (enemyActions[ActionToTest].state == EnemyAction.ActionState.Ready) {
-                Debug.Log("Starting Action!");
-                StartCoroutine(enemyActions[ActionToTest].Use(transform));
-                Debug.Log("F");
-            }
-            else
+            foreach(int actionToTest in actionsToTest)
             {
-                Debug.Log("Action failed: wasn't ready");
+                if (enemyActions[actionToTest].state == EnemyAction.ActionState.Ready)
+                {
+                    StartCoroutine(enemyActions[actionToTest].Use(transform));
+                }
             }
-                
+
         }
     }
 }

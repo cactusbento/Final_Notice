@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Enemy Actions/Simple Radial Shot")]
 public class SimpleRadialAction : EnemyAction
 {
     public override IEnumerator Use(Transform parent)

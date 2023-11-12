@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Enemy Actions/Spinning Shot Action")]
-public class SpinningProjectiles : EnemyAction
+[CreateAssetMenu(menuName = "Enemy Actions/Simple Spinning Shot")]
+public class SimpleSpinningShotAction : EnemyAction
 {
-    [Header("Spinning Projectile Action")]
+    [Header("Simple Spinning Shot")]
     [SerializeField] public float shotsPerSecond;
     [SerializeField] public float degreeChangePerShot;
 

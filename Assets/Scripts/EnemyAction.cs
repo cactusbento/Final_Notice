@@ -6,16 +6,14 @@ public abstract class EnemyAction : ScriptableObject
 {
     [Header("Attack")]
     [SerializeField] public Vector3 origin = Vector3.zero;
-    [SerializeField, Range(0f, 360)] public float spreadSize = 360;
+    [SerializeField, Range(0f, 360)] public float spread = 360;
     [SerializeField, Range(0f, 1f)] public float accuracy = 1;
     // must be gameobjects with the projectile component
     [SerializeField] public List<GameObject> projectiles;
     
 
     [Header("Movement")]
-    [SerializeField] public float moveDuration = 0;
-    [SerializeField] public float maxSpeed = 0;
-    [SerializeField] public Vector3 moveLocation = Vector3.zero;
+    [SerializeField] public float speed = 0;
 
     [Header("General")]
     [SerializeField] public float duration = 0;
@@ -36,7 +34,7 @@ public abstract class EnemyAction : ScriptableObject
     {
         if (projectile.GetComponent<ProjectileController>())
         {
-            Instantiate(projectile, t.position, t.rotation, t);
+            Instantiate(projectile, t.position, t.rotation);
         }
         else
             Debug.LogError($"Attemping to spawn Projectile {projectile.name} which is not a projectile");
