@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -50,6 +49,10 @@ public class PlayerController : MonoBehaviour
     bool abilityInput;
     float nextTimeToAbility;
 
+    [Header("Visuals")]
+    public bool isGhost = false;
+    SpriteRenderer spriteRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +64,8 @@ public class PlayerController : MonoBehaviour
         parryColliderOverlaps = new List<Collider2D>();
 
         reticle.localPosition = new Vector3(0f, parryRange, 0f);
+
+        spriteRenderer = transform.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -84,7 +89,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //parry
-        if(parryInput && Time.time >= nextTimeToParry)
+        if(!isGhost && parryInput && Time.time >= nextTimeToParry)
         {
             nextTimeToParry = Time.time + 1f / parryRate;
             Parry();
@@ -204,7 +209,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        currentHealthHealth -= damage;
+        currentHealth -= damage;
         if(currentHealth <= 0)
         {
             Die();
@@ -213,7 +218,7 @@ public class PlayerController : MonoBehaviour
 
     public void Heal(float heal)
     {
-        curentHealth += damage;
+        currentHealth += heal;
         if(currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
@@ -223,6 +228,10 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         Debug.Log($"Player died ({gameObject.name})");
+        gameObject.tag = "Ghost";
+        isGhost = true;
+        //change sprite
+        spriteRenderer.color = new Color(100f, 0f, 0f, 0.5f);
     }
 
     void OnDrawGizmos()

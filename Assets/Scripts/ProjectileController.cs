@@ -44,4 +44,12 @@ public class ProjectileController : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.tag == "Player")
+        {
+            col.GetComponent<PlayerController>().TakeDamage(damage);
+        }
+    }
 }
