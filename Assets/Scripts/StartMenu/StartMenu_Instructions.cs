@@ -12,8 +12,10 @@ public class StartMenu_Instructions : MonoBehaviour
     public int playersReady = 0;
 
     /// <summary>
-    /// Should be controlled by multiplayer component to determine
-    /// how many players are in the game.
+    /// Determined by the number of controllers
+    /// that are connected to the game.
+    /// 
+    /// `Input.GetJoystickNames().Length`
     /// </summary>
     public int maxPlayers = 4;
 
@@ -29,6 +31,8 @@ public class StartMenu_Instructions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        int numControllers = Input.GetJoystickNames().Length;
+        maxPlayers = (numControllers < 1) ? 1 : numControllers;
         string instructionString = "Press Start to Ready";
         isReady = false;
         if (playersReady >= maxPlayers) {

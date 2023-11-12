@@ -898,6 +898,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playersReady: 0
   maxPlayers: 4
+  isReady: 0
 --- !u!1001 &1664336142
 PrefabInstance:
   m_ObjectHideFlags: 0
