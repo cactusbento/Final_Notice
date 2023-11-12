@@ -20,4 +20,9 @@ public class LinearProjectileController : ProjectileController
     {
         base.Run();
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.Collide(collision);
+    }
 }

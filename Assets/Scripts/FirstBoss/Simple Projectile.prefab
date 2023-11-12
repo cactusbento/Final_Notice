@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5620185387298673780}
   - component: {fileID: 6957368318780669511}
   - component: {fileID: 8572777116264501506}
+  - component: {fileID: -116536014677351894}
   m_Layer: 0
   m_Name: Simple Projectile
   m_TagString: Untagged
@@ -98,9 +99,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  direction: {x: 0.86602545, y: -0.4999999, z: 0}
+  direction: {x: -0.86602557, y: -0.49999967, z: 0}
   hasMaxDuration: 1
   hasMaxDistance: 1
   maxDuration: 10
   maxDistance: 10
   speed: 0.01
+  parryable: 1
+  isParried: 0
+--- !u!58 &-116536014677351894
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223782333574342761}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

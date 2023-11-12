@@ -44,7 +44,8 @@ public class TargetingShotAction : EnemyAction
 
             // shooting at the target
             // calculate the primary direction
-            Vector3 primaryDirection = target.transform.position - parent.transform.position; 
+            Vector3 primaryDirection = target.transform.position - parent.transform.position;
+            primaryDirection= Vector3.Normalize(primaryDirection);
             // adjust that by accuracy
             if (accuracy != 1)
             {

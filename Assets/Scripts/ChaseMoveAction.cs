@@ -11,7 +11,6 @@ public class ChaseMoveAction : EnemyAction
     {
 
         // setting up AIPath
-        Debug.Log("The chase has begun!");
         aiPath = parent.GetComponent<AIPath>();
         if(aiPath == null)
         {
@@ -64,7 +63,7 @@ public class ChaseMoveAction : EnemyAction
         }
         else
         {
-            Debug.LogError("ChaseMoveAction: No players to target!");
+            Debug.LogWarning("ChaseMoveAction: No players to target!");
             yield break;
         }
     }

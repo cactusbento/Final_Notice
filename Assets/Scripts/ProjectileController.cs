@@ -12,6 +12,9 @@ public abstract class ProjectileController : MonoBehaviour
     [SerializeField] public float maxDuration = 1f;
     [SerializeField] public float maxDistance = 5f;
     [SerializeField] public float speed = 1f;
+    [SerializeField] public bool parryable = false;
+    [SerializeField] public bool isParried = false;
+
     protected float lifeTime;
     protected float travelDistance;
 
@@ -22,7 +25,7 @@ public abstract class ProjectileController : MonoBehaviour
 
     public void ChangeDirection(Vector3 newDirection)
     {
-        direction = newDirection;
+        direction = newDirection.normalized;
     }
 
     public void Despawn()
@@ -40,7 +43,7 @@ public abstract class ProjectileController : MonoBehaviour
     // note: call in all child classes Update()
     protected void Run()
     {
-        if (lifeTime >= maxDuration || travelDistance >= maxDistance)
+        if ((lifeTime >= maxDuration && hasMaxDuration) || (travelDistance >= maxDistance && hasMaxDistance))
         {
             Despawn();
         }
@@ -48,4 +51,46 @@ public abstract class ProjectileController : MonoBehaviour
 
         FollowPath();
     }
+
+    // note: call in all child classes' OnCollisionEnter2D
+    protected void Collide(Collider2D collision)
+    {
+        Debug.Log("ProjectileController: Colliding!");
+        string tag = collision.transform.tag;
+        if (tag == "Player")
+        {
+            PlayerController player = collision.transform.GetComponent<PlayerController>();
+            if (player == null)
+            {
+                Debug.LogError("ProjectileController: collided with non-player, but player-tagged collider!");
+                return;
+            }
+            else
+            {
+                player.TakeDamage(damage);
+                Despawn();
+            }
+
+        }
+        else if (tag == "Enemy" && isParried)
+        {
+            EnemyController enemy = collision.transform.GetComponent<EnemyController>();
+            if (enemy == null)
+            {
+                Debug.LogError("ProjectileController: collided with non-enemy, but enemy-tagged collider!");
+                return;
+            }
+            else
+            {
+                enemy.TakeDamage(damage);
+                Despawn();
+            }
+        }
+        else
+        {
+            Debug.Log("ProjectileController: collided with undealt with tagged game object.");
+        }
+    }
+
+
 }

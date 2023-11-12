@@ -4,7 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
-{  
+{
+    [Header("Stats")]
+    [SerializeField] float currentHealth;
+    [SerializeField] float maxHealth = 10f;
+
     [Header("Movement")]
     [SerializeField] float acceleration = 1f;
     [SerializeField] float deccelerationScalar = 1f;
@@ -44,15 +48,23 @@ public class PlayerController : MonoBehaviour
     bool abilityInput;
     float nextTimeToAbility;
 
+    [Header("Visuals")]
+    public bool isGhost = false;
+    SpriteRenderer spriteRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
+        currentHealth = maxHealth;
+
         rb = transform.GetComponent<Rigidbody2D>();
 
         parryCollider.radius = parryRange;
         parryColliderOverlaps = new List<Collider2D>();
 
         reticle.localPosition = new Vector3(0f, parryRange, 0f);
+
+        spriteRenderer = transform.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -65,7 +77,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            moveForce = rb.mass * acceleration * movementInput;  
+            moveForce = rb.mass * acceleration * movementInput;
         }
         rb.AddForce(moveForce);
 
@@ -76,14 +88,14 @@ public class PlayerController : MonoBehaviour
         }
 
         //parry
-        if(parryInput && Time.time >= nextTimeToParry)
+        if (!isGhost && parryInput && Time.time >= nextTimeToParry)
         {
             nextTimeToParry = Time.time + 1f / parryRate;
             Parry();
         }
 
         //ability
-        if(abilityInput && Time.time >= nextTimeToAbility)
+        if (abilityInput && Time.time >= nextTimeToAbility)
         {
             nextTimeToAbility = Time.time + 1f / abilityRate;
             Ability();
@@ -97,18 +109,22 @@ public class PlayerController : MonoBehaviour
         parryTarget = null;
         ColliderFindParryTarget();
 
-        if (parryTarget.gameObject.TryGetComponent<ProjectileController>(out parryTargetPC))
+        if (parryTarget)
         {
-            parryTargetPC.ChangeDirection(reticleContainer.up);
-        }
-        else if (parryTarget.gameObject.TryGetComponent<Rigidbody2D>(out parryTargetRb))
-        {
-            parryTargetRb.AddForce(reticleContainer.up * parryStrength);
-        }
-        else
-        {
-            Debug.LogError(gameObject.name + "'s parryTarget, " +
-                parryTarget.gameObject.name + " has no rigidbody or projectile container");
+            if (parryTarget.gameObject.TryGetComponent<ProjectileController>(out parryTargetPC))
+            {
+                parryTargetPC.isParried = true;
+                parryTargetPC.ChangeDirection(reticleContainer.up);
+            }
+            else if (parryTarget.gameObject.TryGetComponent<Rigidbody2D>(out parryTargetRb))
+            {
+                parryTargetRb.AddForce(reticleContainer.up * parryStrength);
+            }
+            else
+            {
+                Debug.LogError(gameObject.name + "'s parryTarget, " +
+                    parryTarget.gameObject.name + " has no rigidbody or projectile container");
+            }
         }
     }
 
@@ -157,9 +173,36 @@ public class PlayerController : MonoBehaviour
         hit = Physics2D.Raycast(transform.position, reticleContainer.up, parryRange);
     }
 
+    //account for players, enemies, and parryable projectile
     bool IsParryableObject(Collider2D col)
     {
-        return col.gameObject.GetInstanceID() != gameObject.GetInstanceID();
+        // is it a pushable enemy
+        EnemyController enemy;
+        bool pushableEnemy = col.transform.TryGetComponent<EnemyController>(out enemy);
+        if (pushableEnemy)
+        {
+            Debug.Log("PlayerController.IsParryableObject: Parry target is an enemy");
+            pushableEnemy = enemy.pushable;
+        }
+        
+
+        // is it a parryable projectile
+        ProjectileController projectile;
+        bool parryableProjectile = col.transform.TryGetComponent<ProjectileController>(out projectile);
+        if (parryableProjectile)
+        {
+            Debug.Log("PlayerController.IsParryableObject: Parry target is an enemy");
+            parryableProjectile = projectile.parryable;
+        }
+
+        // is pushable object
+        bool pushableObject = col.transform.tag == "Object";
+
+        // is a player that isn't the current
+        bool validPlayer = col.transform.tag == "Player" && col.gameObject.GetInstanceID() != gameObject.GetInstanceID();
+
+        Debug.Log($"PlayerController.IsParryableObject: parryableProjectile={parryableProjectile} pushableEnemy={pushableEnemy} pushableObject={pushableObject} validPlayer={validPlayer}");
+        return parryableProjectile || pushableEnemy || pushableObject|| validPlayer;
     }
 
     bool IsInParryCone(Collider2D col)
@@ -189,6 +232,33 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Ability used.");
     }
 
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Heal(float heal)
+    {
+        currentHealth += heal;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log($"Player died ({gameObject.name})");
+        gameObject.tag = "Ghost";
+        isGhost = true;
+        //change sprite
+        spriteRenderer.color = new Color(100f, 0f, 0f, 0.5f);
+    }
+
     void OnDrawGizmos()
     {
         //parry range
@@ -201,12 +271,12 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawRay(transform.position, Quaternion.Euler(0f, 0f, parryAngle) * reticleContainer.up * parryRange);
     }
 
-    
+
     public void OnMove(InputAction.CallbackContext ctx) => movementInput = ctx.ReadValue<Vector2>();
 
     public void OnAim(InputAction.CallbackContext ctx) => aimInput = ctx.ReadValue<Vector2>();
 
     public void OnParry(InputAction.CallbackContext ctx) => parryInput = ctx.ReadValueAsButton();
 
-    public void OnAbility(InputAction.CallbackContext ctx) => abilityInput = ctx.ReadValueAsButton(); 
+    public void OnAbility(InputAction.CallbackContext ctx) => abilityInput = ctx.ReadValueAsButton();
 }

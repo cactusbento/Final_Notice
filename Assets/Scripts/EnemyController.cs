@@ -7,6 +7,7 @@ public abstract class EnemyController : MonoBehaviour
     [Header("Enemy Controller")]
     [SerializeField] public float maxHealth = 100f;
     [SerializeField] public float currentHealth = 100f;
+    [SerializeField] public bool pushable = false;
     [SerializeField] public List<EnemyAction> enemyActions;
 
     public void TakeDamage(float damage)
@@ -20,7 +21,9 @@ public abstract class EnemyController : MonoBehaviour
 
     public void Die()
     {
+        Debug.Log("EnemyController.Die: Called.");
         gameObject.SetActive(false);
+
     }
 
     Vector3 GetTarget(float maxRange, bool isPredictive)

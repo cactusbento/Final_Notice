@@ -13,17 +13,16 @@ MonoBehaviour:
   m_Name: Simple Spinning Action
   m_EditorClassIdentifier: 
   origin: {x: 0, y: 0, z: 0}
-  spreadSize: 360
+  spread: 360
   accuracy: 0
   projectiles:
   - {fileID: 1223782333574342761, guid: ba28131a8a7f0144c94d4a084628f12f, type: 3}
   - {fileID: 1223782333574342761, guid: ba28131a8a7f0144c94d4a084628f12f, type: 3}
   - {fileID: 1223782333574342761, guid: ba28131a8a7f0144c94d4a084628f12f, type: 3}
-  moveDuration: 0
-  maxSpeed: 0
-  moveLocation: {x: 0, y: 0, z: 0}
+  - {fileID: 1223782333574342761, guid: ba28131a8a7f0144c94d4a084628f12f, type: 3}
+  speed: 0
   duration: 1
   cooldown: 0
   state: 1
-  shotsPerSecond: 2
+  shotsPerSecond: 4
   degreeChangePerShot: 30
