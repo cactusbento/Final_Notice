@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour
          * firing multiple raycasts through the parry cone may be a better 
          * implementation than collider based detection
          */
-        hit = Physics2D.Raycast(transform.positon, reticleContainer.up, parryRange);
+        hit = Physics2D.Raycast(transform.position, reticleContainer.up, parryRange);
     }
 
     bool IsParryableObject(Collider2D col)

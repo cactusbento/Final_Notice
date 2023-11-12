@@ -21,12 +21,11 @@ public class ChaseMoveAction : EnemyAction
         aiPath.maxSpeed = speed;
 
         // acquiring a target
-        // acquiring a target
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        GameObject target = players[0];
-        float minDistance = -1;
         if (players.Length > 0)
-        {
+        {  
+            GameObject target = players[0];
+            float minDistance = -1;
             // getting the nearest player as a target
             foreach (GameObject player in players)
             {
