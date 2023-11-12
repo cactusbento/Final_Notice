@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Scripts/ChaseMoveAction.cs.meta
-guid: 3896a1f8cb93ee34db3d6b8f81e389a5
-========
-guid: 0b874b521df9aec4bb3c4d561e54166a
->>>>>>>> movement-ellie:Assets/Scripts/Enemy.cs.meta
+guid: d7bf3dfa4c0c47e4c8460b9760dcc933
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Enemy.cs.meta
 guid: 0b874b521df9aec4bb3c4d561e54166a
+========
+guid: 7f2d838436f43044d9e6187e49b61cac
+>>>>>>>> movement-ellie:Assets/Scripts/EnemyAction.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
