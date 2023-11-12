@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ability")]
     [SerializeField] float abilityRate = 4f;
+    [SerializeField] Relic relic;
 
     bool abilityInput;
     float nextTimeToAbility;
@@ -65,6 +66,8 @@ public class PlayerController : MonoBehaviour
         reticle.localPosition = new Vector3(0f, parryRange, 0f);
 
         spriteRenderer = transform.GetComponent<SpriteRenderer>();
+
+        relic = reticleContainer.Find("RelicContainer").GetChild(0).GetComponent<Relic>();
     }
 
     // Update is called once per frame
@@ -229,7 +232,47 @@ public class PlayerController : MonoBehaviour
 
     void Ability()
     {
-        Debug.Log("Ability used.");
+        if (relic != null)
+        {
+            Debug.Log("Relic used.");
+            relic.Use();
+        }
+        else
+        {
+            Debug.Log("No relic equipped");
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        if(currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Heal(float heal)
+    {
+        currentHealth += heal;
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log($"Player died ({gameObject.name})");
+        gameObject.tag = "Ghost";
+        isGhost = true;
+        //change sprite
+        spriteRenderer.color = new Color(100f, 0f, 0f, 0.5f);
+    }
+
+    public Vector3 GetAimDirection()
+    {
+        return reticleContainer.up;
     }
 
     public void TakeDamage(float damage)
