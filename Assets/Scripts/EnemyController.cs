@@ -4,8 +4,24 @@ using UnityEngine;
 
 public abstract class EnemyController : MonoBehaviour
 {
-    [SerializeField] float health = 100f;
-    [SerializeField] List<EnemyAction> actions;
+    [Header("Enemy Controller")]
+    [SerializeField] public float maxHealth = 100f;
+    [SerializeField] public float currentHealth = 100f;
+    [SerializeField] public List<EnemyAction> enemyActions;
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth < 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        gameObject.SetActive(false);
+    }
 
     Vector3 GetTarget(float maxRange, bool isPredictive)
     {
