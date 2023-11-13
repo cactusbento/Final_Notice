@@ -275,33 +275,6 @@ public class PlayerController : MonoBehaviour
         return reticleContainer.up;
     }
 
-    public void TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-    }
-
-    public void Heal(float heal)
-    {
-        currentHealth += heal;
-        if (currentHealth > maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
-    }
-
-    void Die()
-    {
-        Debug.Log($"Player died ({gameObject.name})");
-        gameObject.tag = "Ghost";
-        isGhost = true;
-        //change sprite
-        spriteRenderer.color = new Color(100f, 0f, 0f, 0.5f);
-    }
-
     void OnDrawGizmos()
     {
         //parry range
