@@ -72,7 +72,7 @@ public class ChaseMoveAction : EnemyAction
             if (durationTimer > duration)
             {
                 aiPath.canMove = false;
-                Debug.Log("ChaseseMoveAction.Use: canMove = false");
+                //Debug.Log("ChaseseMoveAction.Use: canMove = false");
             }
 
             // ending animation

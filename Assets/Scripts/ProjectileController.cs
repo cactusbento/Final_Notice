@@ -55,7 +55,7 @@ public abstract class ProjectileController : MonoBehaviour
     // note: call in all child classes' OnCollisionEnter2D
     protected void Collide(Collider2D collision)
     {
-        Debug.Log("ProjectileController: Colliding!");
+        //Debug.Log("ProjectileController: Colliding!");
         string tag = collision.transform.tag;
         if (tag == "Player")
         {
@@ -93,7 +93,7 @@ public abstract class ProjectileController : MonoBehaviour
         }
         else
         {
-            Debug.Log("ProjectileController: collided with undealt with tagged game object.");
+            //Debug.Log("ProjectileController: collided with undealt with tagged game object.");
         }
     }
 

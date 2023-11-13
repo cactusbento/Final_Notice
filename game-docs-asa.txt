@@ -10,3 +10,5 @@
 	Fixed boss chasing
 	Added idle watching to boss
 	Lots of balance tweaks for prototype
+11/13:
+	merged Luke's camera changes

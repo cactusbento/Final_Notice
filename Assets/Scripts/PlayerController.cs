@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
 
     void Parry()
     {
-        Debug.Log("Parry.");
+        //Debug.Log("Parry.");
 
         parryTarget = null;
         ColliderFindParryTarget();
@@ -213,7 +213,7 @@ public class PlayerController : MonoBehaviour
         // is a player that isn't the current
         bool validPlayer = col.transform.tag == "Player" && col.gameObject.GetInstanceID() != gameObject.GetInstanceID();
 
-        Debug.Log($"PlayerController.IsParryableObject: parryableProjectile={parryableProjectile} pushableEnemy={pushableEnemy} pushableObject={pushableObject} validPlayer={validPlayer}");
+        //Debug.Log($"PlayerController.IsParryableObject: parryableProjectile={parryableProjectile} pushableEnemy={pushableEnemy} pushableObject={pushableObject} validPlayer={validPlayer}");
         return parryableProjectile || pushableEnemy || pushableObject|| validPlayer;
     }
 
