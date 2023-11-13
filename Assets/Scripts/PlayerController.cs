@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float acceleration = 1f;
     [SerializeField] float deccelerationScalar = 1f;
     [SerializeField] float topSpeed = 5f;
+    [SerializeField] float minSpeed = 0.05f;
 
     Vector2 movementInput;
     Rigidbody2D rb;
@@ -50,8 +51,9 @@ public class PlayerController : MonoBehaviour
     float nextTimeToAbility;
 
     [Header("Visuals")]
+    public Animator animator;
     public bool isGhost = false;
-    SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +70,8 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = transform.GetComponent<SpriteRenderer>();
 
         relic = reticleContainer.Find("RelicContainer").GetChild(0).GetComponent<Relic>();
+
+        GameObject.Find("PlayerManager").GetComponent<PlayerManager>().PlayerJoined(this);
     }
 
     // Update is called once per frame
@@ -83,6 +87,11 @@ public class PlayerController : MonoBehaviour
             moveForce = rb.mass * acceleration * movementInput;
         }
         rb.AddForce(moveForce);
+
+        //animations
+        animator.SetBool("Moving", rb.velocity.magnitude > minSpeed);
+        animator.SetFloat("MoveX", rb.velocity.x);
+        animator.SetFloat("MoveY", rb.velocity.y);
 
         //aiming
         if (aimInput.magnitude > aimInputThreshold)

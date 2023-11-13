@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 2112656100658298508}
   - component: {fileID: 5660409930935779217}
   - component: {fileID: 6808927842304306376}
+  - component: {fileID: 4616880317757788437}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -174,6 +175,7 @@ MonoBehaviour:
   acceleration: 10
   deccelerationScalar: 10
   topSpeed: 100
+  minSpeed: 0.1
   aimInputThreshold: 0.1
   reticleContainer: {fileID: 8995955717960978779}
   reticle: {fileID: 8001316563125649250}
@@ -184,7 +186,9 @@ MonoBehaviour:
   parryCollider: {fileID: 292788201212220816}
   abilityRate: 4
   relic: {fileID: 0}
+  animator: {fileID: 4616880317757788437}
   isGhost: 0
+  spriteRenderer: {fileID: 0}
 --- !u!114 &2112656100658298508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,6 +355,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9375, y: 1.25}
   m_EdgeRadius: 0
+--- !u!95 &4616880317757788437
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5348645584178531881}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6069354862213543149
 GameObject:
   m_ObjectHideFlags: 0
