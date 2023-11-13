@@ -22,13 +22,15 @@ public class LinearProjectileController : ProjectileController
         base.Run();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        base.Collide(collision);
+        //Debug.Log("LinearProjectileController.OnTriggerEnter2D: called");
+        base.Collide(collider);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
+        //Debug.Log("LinearProjectileController.OnCollisionEnter2D: called");
         base.Collide(collision.collider);
     }
 }

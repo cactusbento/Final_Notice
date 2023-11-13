@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class EnemyController : MonoBehaviour
@@ -14,6 +15,11 @@ public abstract class EnemyController : MonoBehaviour
     public void SetUp()
     {
         currentHealth = maxHealth;
+
+        foreach (EnemyAction action in enemyActions)
+        {
+            action.state = EnemyAction.ActionState.Ready;
+        }
     }
 
     public void TakeDamage(float damage)
@@ -29,7 +35,38 @@ public abstract class EnemyController : MonoBehaviour
     {
         Debug.Log("EnemyController.Die: Called.");
         gameObject.SetActive(false);
+    }
 
+    public void TryToStartAction(string enemyActionName, bool logging = false)
+    {
+        EnemyAction action = enemyActions.FirstOrDefault(x => x.actionName == enemyActionName);
+        if (action != null)
+        {
+            if (action.state == EnemyAction.ActionState.Ready)
+            {
+                StartCoroutine(action.Use(transform));
+            }
+            else if (logging)
+            {
+                Debug.Log($"EnemyController.TryToStartAction: couldn't start '{enemyActionName}', wasn't ready...");
+            }
+        }
+        else
+        {
+            Debug.LogError($"EnemyController.TryToStartAction: Couldn't find Enemy Action named '{enemyActionName}'!");
+        }
+    }
+
+    public bool AllActionsReady()
+    {
+        foreach(EnemyAction action in enemyActions)
+        {
+            if (action.state != EnemyAction.ActionState.Ready)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

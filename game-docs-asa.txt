@@ -11,4 +11,5 @@
 	Added idle watching to boss
 	Lots of balance tweaks for prototype
 11/13:
-	merged Luke's camera changes
+	Solved: Projectiles were going through walls
+		By: Projectiles were triggers, walls were not, so need to use on triggerEnter and also add rigidbodies to all the walls. The rigidbodies need to be dynamic tho w/ locked x,y, and rotation

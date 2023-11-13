@@ -14,9 +14,11 @@ public class TargetingShotAction : EnemyAction
     {
         // acquiring a target
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        GameObject target = players[0];
+        GameObject target = null;
+        if (players != null && players.Length > 0)
+            target = players[0];
         float minDistance = -1;
-        if (players.Length > 0 )
+        if (target != null && players.Length > 0 )
         {
             // getting the nearest player as a target
             foreach (GameObject player in players)

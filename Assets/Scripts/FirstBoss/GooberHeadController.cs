@@ -15,10 +15,7 @@ public class GooberHeadController : EnemyController
     {
         base.SetUp();
 
-        // Setting All Actions to ready State
-        foreach (EnemyAction action in enemyActions) {
-            action.state = EnemyAction.ActionState.Ready;
-        }
+
     }
 
     private void FixedUpdate()

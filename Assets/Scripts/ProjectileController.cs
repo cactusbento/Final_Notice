@@ -88,7 +88,7 @@ public abstract class ProjectileController : MonoBehaviour
         }
         else if (tag == "Environment")
         {
-            Debug.LogError("ProjectileController: collided with environment!");
+            //Debug.Log("ProjectileController: collided with environment!");
             Despawn();
         }
         else

@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(transform.parent);
+        //Debug.Log(transform.parent);
     }
 
     // Update is called once per frame

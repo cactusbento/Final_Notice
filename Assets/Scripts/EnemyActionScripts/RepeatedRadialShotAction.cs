@@ -1,35 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Enemy Actions/Simple Spinning Shot")]
-public class SimpleSpinningShotAction : EnemyAction
+[CreateAssetMenu(menuName = "Enemy Actions/Attacks/Repeated Radial Shot")]
+public class RepeatedRadialShotAction : EnemyAction
 {
-    [Header("Simple Spinning Shot")]
-    [SerializeField] public float shotsPerSecond;
-    [SerializeField] public float degreeChangePerShot;
-
-
+    [Header("Repeated Radial Shot")]
+    [SerializeField] public float shotsPerSecond = 1f;
     public override IEnumerator Use(Transform parent)
     {
-        state = EnemyAction.ActionState.Active;
+        state = ActionState.Active;
 
         float elapsedTime = 0;
-        float shotTimer = 0;
-
-        float baseDegree = 0;
-   
-        while (elapsedTime < duration) {
-            // updating times
+        float elapsedShotsPerSecondTimer = 0;
+        while (elapsedTime < duration)
+        {
             elapsedTime += Time.deltaTime;
-            shotTimer += Time.deltaTime;
+            elapsedShotsPerSecondTimer += Time.deltaTime;
 
-            if (shotTimer > (1 / shotsPerSecond))
+            if (elapsedShotsPerSecondTimer > 1 / shotsPerSecond)
             {
-                shotTimer = 0;
-                // shooting radial shot
+
+                elapsedShotsPerSecondTimer = 0;
+
                 float degreeIncrement = 360 / projectiles.Count;
-                float currDegree = baseDegree;
+                float currDegree = 0;
                 foreach (GameObject projectile in projectiles)
                 {
                     // Check if real projectile
@@ -40,18 +37,17 @@ public class SimpleSpinningShotAction : EnemyAction
                         p.direction = RotateVector(Vector3.up, currDegree);
                         currDegree += degreeIncrement;
                         SpawnProjectile(projectile, parent);
+
                     }
                     else
                     {
-                        Debug.LogError($"SimpleSpinningShotAction.Use: Projectile on {parent.name} is not a real projectile");
+                        Debug.LogError($"Projectile on {parent.name} is not a real projectile");
                     }
                 }
-                baseDegree += degreeChangePerShot;
             }
-
-
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
         }
+
 
         // doing cooldown
         if (cooldown > 0)
@@ -59,7 +55,7 @@ public class SimpleSpinningShotAction : EnemyAction
             state = EnemyAction.ActionState.CoolDown;
             yield return new WaitForSeconds(cooldown);
         }
-        
+
         // readying and exiting
         state = EnemyAction.ActionState.Ready;
         yield break;

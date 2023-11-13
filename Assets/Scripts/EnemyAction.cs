@@ -5,6 +5,12 @@ using UnityEngine;
 
 public abstract class EnemyAction : ScriptableObject
 {
+
+    [Header("General")]
+    [SerializeField] public string actionName = string.Empty;
+    [SerializeField] public float duration = 0;
+    [SerializeField] public float cooldown = 0;
+
     [Header("Attack")]
     [SerializeField] public Vector3 origin = Vector3.zero;
     [SerializeField, Range(0f, 360)] public float spread = 360;
@@ -15,10 +21,6 @@ public abstract class EnemyAction : ScriptableObject
 
     [Header("Movement")]
     [SerializeField] public float speed = 0;
-
-    [Header("General")]
-    [SerializeField] public float duration = 0;
-    [SerializeField] public float cooldown = 0;
 
     public enum ActionState 
     {
