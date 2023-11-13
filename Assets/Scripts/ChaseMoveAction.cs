@@ -5,71 +5,75 @@ using Pathfinding;
 [CreateAssetMenu(menuName = "Enemy Actions/Movement/Chase")]
 public class ChaseMoveAction : EnemyAction
 {
-    private AIPath aiPath;
+    [SerializeField] public float timeBeforeRetargeting = 1f;
 
     public override IEnumerator Use(Transform parent)
     {
-
-        // running animation
-
-
-
-
+        state = EnemyAction.ActionState.Active;
         // setting up AIPath
-        aiPath = parent.GetComponent<AIPath>();
+        AIPath aiPath = parent.GetComponent<AIPath>();
+        AIDestinationSetter destinationSetter = parent.GetComponent<AIDestinationSetter>();
         if(aiPath == null)
         {
             Debug.LogError("ChaseMoveAction: EXITING! No AIPath component on parent!");
             yield break;
         }
+        if (destinationSetter == null)
+        {
+            Debug.LogError("ChaseMoveAction: EXITING! No AIDestinationSetter component on parent!");
+            yield break;
+        }
+
         aiPath.maxSpeed = speed;
+        aiPath.canMove = true;
 
         // acquiring a target
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        if (players.Length > 0)
+        Transform target = GetTarget(parent, out bool foundTarget);
+        destinationSetter.target = target;
+        if (foundTarget)
         {
+            
+            Animator animator = parent.GetComponent<Animator>();
 
-            GameObject target = players[0];
-            float minDistance = -1;
-            // getting the nearest player as a target
-            foreach (GameObject player in players)
+            float durationTimer = 0;
+            float targetingTimer = 0;
+            float lastTime = Time.time;
+            while (durationTimer < duration)
             {
-                if (minDistance == -1)
+                
+                durationTimer += Time.time - lastTime;
+                targetingTimer += Time.time - lastTime;
+                lastTime = Time.time;
+
+                // running chase
+                if (targetingTimer > timeBeforeRetargeting)
                 {
-                    minDistance = Vector3.Distance(player.transform.position, parent.transform.position);
+                    targetingTimer = 0;
+                    target = GetTarget(parent, out foundTarget);
+                    destinationSetter.target = target;
+                }
+
+
+                // running animation
+                if (animator != null)
+                {
+                    animator.SetBool("Moving", true);
+                    Vector3 direction = target.position - parent.position;
+                    animator.SetFloat("MoveX", direction.x);
+                    animator.SetFloat("MoveY", direction.y);
                 }
                 else
                 {
-                    float testDistance = Vector3.Distance(player.transform.position, parent.transform.position);
-                    if (testDistance < minDistance)
-                    {
-                        minDistance = testDistance;
-                        target = player;
-                    }
+                    Debug.LogError("ChaseMoveAction.Use: No animator on parent parameter");
                 }
+                yield return new WaitForEndOfFrame();
             }
-            aiPath.canMove = true;
-            aiPath.destination = target.transform.position;
-            // starting animation
-            Animator animator = parent.GetComponent<Animator>();
-            if (animator != null)
+
+            if (durationTimer > duration)
             {
-                animator.SetBool("Moving", true);
-                Vector3 direction = target.transform.position - parent.transform.position;
-                animator.SetFloat("MoveX", direction.x);
-                animator.SetFloat("MoveY", direction.y);
+                aiPath.canMove = false;
+                Debug.Log("ChaseseMoveAction.Use: canMove = false");
             }
-            else
-            {
-                Debug.LogError("ChaseMoveAction.Use: No animator on parent parameter");
-            }
-            
-
-
-
-            state = EnemyAction.ActionState.Active;
-            yield return new WaitForSeconds(duration);
-            aiPath.canMove = false;
 
             // ending animation
             if (animator != null)
@@ -90,6 +94,7 @@ public class ChaseMoveAction : EnemyAction
         }
         else
         {
+            state = EnemyAction.ActionState.Ready;
             Debug.LogWarning("ChaseMoveAction: No players to target!");
             yield break;
         }

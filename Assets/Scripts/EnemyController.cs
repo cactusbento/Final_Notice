@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,6 @@ public abstract class EnemyController : MonoBehaviour
     [SerializeField] public float currentHealth = 100f;
     [SerializeField] public bool pushable = false;
     [SerializeField] public List<EnemyAction> enemyActions;
-    [SerializeField] public Animator animator;
 
     public void TakeDamage(float damage)
     {
@@ -27,17 +27,4 @@ public abstract class EnemyController : MonoBehaviour
 
     }
 
-    Vector3 GetTarget(float maxRange, bool isPredictive)
-    {
-        if (!isPredictive)
-        {
-
-        }
-        else
-        {
-
-        }
-
-        return Vector3.zero;
-    }
 }

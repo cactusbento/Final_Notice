@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +31,7 @@ public abstract class EnemyAction : ScriptableObject
     // desc: Activates/Uses the action
     public abstract IEnumerator Use(Transform parent);
 
-    public void SpawnProjectile(GameObject projectile, Transform t)
+    public static void SpawnProjectile(GameObject projectile, Transform t)
     {
         if (projectile.GetComponent<ProjectileController>())
         {
@@ -40,7 +41,7 @@ public abstract class EnemyAction : ScriptableObject
             Debug.LogError($"Attemping to spawn Projectile {projectile.name} which is not a projectile");
     }
 
-    public void DespawnProjectile(GameObject projectile)
+    public static void DespawnProjectile(GameObject projectile)
     {
         if (projectile.GetComponent<ProjectileController>())
         {
@@ -50,7 +51,7 @@ public abstract class EnemyAction : ScriptableObject
             Debug.LogError($"Attemping to despawn Projectile {projectile.name} which is not a projectile");
     }
 
-    public Vector3 RotateVector(Vector3 direction, float degreesToRotate)
+    public static Vector3 RotateVector(Vector3 direction, float degreesToRotate)
     {
         // Convert degrees to radians (Unity uses radians for trigonometric functions).
         float radiansToRotate = degreesToRotate * Mathf.Deg2Rad;
@@ -62,4 +63,60 @@ public abstract class EnemyAction : ScriptableObject
         // Create a new Vector3 with the rotated values.
         return new Vector3(newX, newY, direction.z);
     }
+
+    public static Transform GetTarget(Transform parent, out bool foundTarget, float maxRange = -1, float predictOut = 0)
+    {
+        // acquiring target based on current position
+        if (predictOut == 0)
+        {
+            // acquiring a target
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            if (players.Length > 0)
+            {
+
+                GameObject target = players[0];
+                float minDistance = -1;
+                // getting the nearest player as a target
+                foreach (GameObject player in players)
+                {
+                    if (minDistance == -1)
+                    {
+                        minDistance = Vector3.Distance(player.transform.position, parent.position);
+                    }
+                    else
+                    {
+                        float testDistance = Vector3.Distance(player.transform.position, parent.position);
+                        if (testDistance < minDistance)
+                        {
+                            minDistance = testDistance;
+                            target = player;
+                        }
+                    }
+                }
+
+                // checking if minDistance in range
+                if (maxRange != -1 && minDistance > maxRange)
+                {
+                    Debug.Log("EnemyController.GetTarget: Failed to target, nobody within range.");
+                    foundTarget = false;
+                    return null;
+                }
+                foundTarget = true;
+                return target.transform;
+            }
+            else
+            {
+                Debug.LogWarning("EnemyController.GetTarget: No players to target!");
+                foundTarget = false;
+                return null;
+            }
+        }
+        else
+        {
+            throw new NotImplementedException();
+            foundTarget = false;
+            return null;
+        }
+    }
+
 }

@@ -31,7 +31,19 @@ public class GooberHeadController : EnemyController
                     StartCoroutine(enemyActions[actionToTest].Use(transform));
                 }
             }
+        }
 
+        // running idle animation
+        bool hasAnimator = transform.TryGetComponent<Animator>(out Animator animator);
+        if (hasAnimator && !animator.GetBool("Moving"))
+        {
+            Transform target = EnemyAction.GetTarget(transform, out bool foundTarget);
+            if (foundTarget)
+            {
+                Vector3 direction = target.position - transform.position;
+                animator.SetFloat("MoveX", direction.x);
+                animator.SetFloat("MoveY", direction.y);
+            }
         }
     }
 }
