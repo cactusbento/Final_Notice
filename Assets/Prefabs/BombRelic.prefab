@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 5
-  damage: 10
+  damage: 3
   fuseLength: 3
   spawnDistance: 1
 --- !u!1001 &1625364490577437163

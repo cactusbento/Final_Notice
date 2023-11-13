@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5620185387298673780}
   - component: {fileID: 6957368318780669511}
   - component: {fileID: 8572777116264501506}
-  - component: {fileID: 2636368767672524177}
+  - component: {fileID: 1140040129491931352}
   m_Layer: 0
-  m_Name: Simple Projectile
+  m_Name: Cannon Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.32, y: -0.05, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5f3c82f955446334f8a2b3207c410277, type: 3}
-  m_Color: {r: 1, g: 0.86428314, b: 0.5990566, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -98,16 +98,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d33e0bef2d22ee74bbb4ce9d1883c991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  direction: {x: 0.53335226, y: -0.84589326, z: 0}
+  damage: 8
+  direction: {x: 0.86602545, y: -0.4999999, z: 0}
   hasMaxDuration: 1
   hasMaxDistance: 1
-  maxDuration: 3
+  maxDuration: 10
   maxDistance: 10
-  speed: 0.01
-  parryable: 1
+  speed: 0.001
+  parryable: 0
   isParried: 0
---- !u!61 &2636368767672524177
+--- !u!61 &1140040129491931352
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,5 +150,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0

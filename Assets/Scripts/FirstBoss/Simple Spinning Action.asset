@@ -16,13 +16,13 @@ MonoBehaviour:
   spread: 360
   accuracy: 0
   projectiles:
-  - {fileID: 1223782333574342761, guid: ba28131a8a7f0144c94d4a084628f12f, type: 3}
-  - {fileID: 1223782333574342761, guid: ba28131a8a7f0144c94d4a084628f12f, type: 3}
-  - {fileID: 1223782333574342761, guid: ba28131a8a7f0144c94d4a084628f12f, type: 3}
-  - {fileID: 1223782333574342761, guid: ba28131a8a7f0144c94d4a084628f12f, type: 3}
+  - {fileID: 1223782333574342761, guid: 01327dbcd6c08a840b26ca008d661d57, type: 3}
+  - {fileID: 1223782333574342761, guid: 01327dbcd6c08a840b26ca008d661d57, type: 3}
+  - {fileID: 1223782333574342761, guid: 01327dbcd6c08a840b26ca008d661d57, type: 3}
+  - {fileID: 1223782333574342761, guid: 01327dbcd6c08a840b26ca008d661d57, type: 3}
   speed: 0
-  duration: 1
-  cooldown: 0
-  state: 1
-  shotsPerSecond: 1
-  degreeChangePerShot: 30
+  duration: 3
+  cooldown: 3
+  state: 0
+  shotsPerSecond: 2
+  degreeChangePerShot: 60

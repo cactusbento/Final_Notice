@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
         relic = reticleContainer.Find("RelicContainer").GetChild(0).GetComponent<Relic>();
 
-        GameObject.Find("PlayerManager").GetComponent<PlayerManager>().PlayerJoined(this);
+        GameObject.Find("PlayerInputManager").GetComponent<PlayerManager>().PlayerJoined(this);
     }
 
     // Update is called once per frame

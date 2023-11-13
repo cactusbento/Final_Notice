@@ -8,10 +8,13 @@ public class GooberHeadController : EnemyController
 
     [Header("Test Values")]
     [SerializeField] public int[] actionsToTest;
-    [SerializeField] public float waitBeforeAction = 2;
+    [SerializeField] public float waitBeforeAction = 5;
+    [SerializeField] public float timeInBetweenActions = 2;
     // Start is called before the first frame update
     void Start()
     {
+        base.SetUp();
+
         // Setting All Actions to ready State
         foreach (EnemyAction action in enemyActions) {
             action.state = EnemyAction.ActionState.Ready;
@@ -23,14 +26,18 @@ public class GooberHeadController : EnemyController
         elapsedTime += Time.deltaTime;
         if (elapsedTime > waitBeforeAction)
         {
-            elapsedTime = 0;
-            foreach (int actionToTest in actionsToTest)
+            if (elapsedTime > timeInBetweenActions)
             {
-                if (enemyActions[actionToTest].state == EnemyAction.ActionState.Ready)
+                elapsedTime = 0;
+                foreach (int actionToTest in actionsToTest)
                 {
-                    StartCoroutine(enemyActions[actionToTest].Use(transform));
+                    if (enemyActions[actionToTest].state == EnemyAction.ActionState.Ready)
+                    {
+                        StartCoroutine(enemyActions[actionToTest].Use(transform));
+                    }
                 }
             }
+
         }
 
         // running idle animation

@@ -25,6 +25,7 @@ public class PlayerManager : MonoBehaviour
     {
         players.Add(newPlayer);
         newPlayer.transform.parent = transform;
+        newPlayer.transform.position = transform.position;
         newPlayer.animator.runtimeAnimatorController = playerAnimatorControllers[players.IndexOf(newPlayer)];
     }
 }

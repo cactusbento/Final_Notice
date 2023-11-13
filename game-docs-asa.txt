@@ -9,3 +9,4 @@
 	Tweaked some minor sprite/animation stuff
 	Fixed boss chasing
 	Added idle watching to boss
+	Lots of balance tweaks for prototype

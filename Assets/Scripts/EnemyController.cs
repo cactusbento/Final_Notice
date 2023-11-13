@@ -11,6 +11,11 @@ public abstract class EnemyController : MonoBehaviour
     [SerializeField] public bool pushable = false;
     [SerializeField] public List<EnemyAction> enemyActions;
 
+    public void SetUp()
+    {
+        currentHealth = maxHealth;
+    }
+
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;

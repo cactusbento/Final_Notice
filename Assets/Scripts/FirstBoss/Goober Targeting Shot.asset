@@ -16,9 +16,10 @@ MonoBehaviour:
   spread: 18
   accuracy: 1
   projectiles:
-  - {fileID: 1223782333574342761, guid: 01327dbcd6c08a840b26ca008d661d57, type: 3}
-  - {fileID: 1223782333574342761, guid: 01327dbcd6c08a840b26ca008d661d57, type: 3}
-  - {fileID: 1223782333574342761, guid: 01327dbcd6c08a840b26ca008d661d57, type: 3}
+  - {fileID: 1223782333574342761, guid: ba28131a8a7f0144c94d4a084628f12f, type: 3}
+  - {fileID: 1223782333574342761, guid: ba28131a8a7f0144c94d4a084628f12f, type: 3}
+  - {fileID: 1223782333574342761, guid: ba28131a8a7f0144c94d4a084628f12f, type: 3}
+  - {fileID: 1223782333574342761, guid: ba28131a8a7f0144c94d4a084628f12f, type: 3}
   speed: 0
   duration: 0
   cooldown: 0
