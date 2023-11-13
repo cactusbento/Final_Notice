@@ -33,7 +33,8 @@ public class StartMenu_Instructions : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Alpha0)){
+        if (Input.GetKeyDown(KeyCode.JoystickButton7) ||
+            Input.GetKeyDown(KeyCode.Alpha0)){
             playersReady += 1;
         }
         if (isReady) {
