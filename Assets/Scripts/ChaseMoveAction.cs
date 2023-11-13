@@ -55,7 +55,7 @@ public class ChaseMoveAction : EnemyAction
 
 
                 // running animation
-                if (animator != null)
+                if (animator != null && target != null)
                 {
                     animator.SetBool("Moving", true);
                     Vector3 direction = target.position - parent.position;
