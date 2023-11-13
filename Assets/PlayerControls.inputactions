@@ -304,6 +304,17 @@
                     "isOR": false
                 }
             ]
+        },
+        {
+            "name": "Menu",
+            "bindingGroup": "Menu",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
         }
     ]
 }
