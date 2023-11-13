@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08cc2b74ea848843a4ed9efce479edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 20
   currentHealth: 20
   pushable: 0
   enemyActions:
@@ -427,7 +427,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fd57452fdbacda849adf2e952641161b, type: 2}
   - {fileID: 11400000, guid: aac12ab15dde4e542bc7beba4d428c48, type: 2}
   - {fileID: 11400000, guid: ae3f9ed782d2b38468093adb1d1e525c, type: 2}
-  actionsToTest: 01000000
+  actionsToTest: 00000000010000000200000003000000
   waitBeforeAction: 2
   timeInBetweenActions: 2
 --- !u!212 &249224324
