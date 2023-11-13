@@ -483,6 +483,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fd57452fdbacda849adf2e952641161b, type: 2}
   - {fileID: 11400000, guid: aac12ab15dde4e542bc7beba4d428c48, type: 2}
   - {fileID: 11400000, guid: ae3f9ed782d2b38468093adb1d1e525c, type: 2}
+  projectiles: []
   actionsToTest: 01000000
   waitBeforeAction: 2
   timeInBetweenActions: 2
@@ -9238,7 +9239,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ec55d596670dbda4dad7925fc54b5fd6, type: 2}
   - {fileID: 11400000, guid: a6d71d826be64614487bba8670dfeb3b, type: 2}
   - {fileID: 11400000, guid: e829b0d88ce8683448746a8dc0ce942c, type: 2}
-  - {fileID: 11400000, guid: 4f602d62bdb768a448425f6c8bf8626a, type: 2}
+  - {fileID: 11400000, guid: 5a4181d710f18b04495afb5e73b43819, type: 2}
+  projectiles: []
   timePerPhase: 5
   elapsedTime: 0
   rageGate: 10

@@ -35,12 +35,13 @@ public abstract class EnemyAction : ScriptableObject
 
     public static void SpawnProjectile(GameObject projectile, Transform t)
     {
-        if (projectile.GetComponent<ProjectileController>())
+        if (projectile.TryGetComponent<ProjectileController>(out ProjectileController p))
         {
-            Instantiate(projectile, t.position, t.rotation);
+            GameObject newProjectile = Instantiate(projectile, t.position, t.rotation);
         }
         else
             Debug.LogError($"Attemping to spawn Projectile {projectile.name} which is not a projectile");
+
     }
 
     public static void DespawnProjectile(GameObject projectile)
@@ -116,8 +117,6 @@ public abstract class EnemyAction : ScriptableObject
         else
         {
             throw new NotImplementedException();
-            foundTarget = false;
-            return null;
         }
     }
 

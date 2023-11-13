@@ -15,7 +15,6 @@ public abstract class EnemyController : MonoBehaviour
     public void SetUp()
     {
         currentHealth = maxHealth;
-
         foreach (EnemyAction action in enemyActions)
         {
             action.state = EnemyAction.ActionState.Ready;
