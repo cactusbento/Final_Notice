@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b282337872b801549bae8b76f19e5cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 3
-  damage: 5
-  fuseLength: 1
-  bomb: {fileID: 4751320866030340046, guid: 126fc89d715c0d242b79329c5f1e8f2e, type: 3}
+  range: 5
+  damage: 10
+  fuseLength: 3
+  spawnDistance: 1
 --- !u!1001 &1625364490577437163
 PrefabInstance:
   m_ObjectHideFlags: 0
