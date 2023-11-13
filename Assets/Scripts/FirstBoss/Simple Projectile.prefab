@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f3c82f955446334f8a2b3207c410277, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   direction: {x: -0.86602557, y: -0.49999967, z: 0}
   hasMaxDuration: 1
   hasMaxDistance: 1
-  maxDuration: 10
+  maxDuration: 3
   maxDistance: 10
   speed: 0.01
   parryable: 1

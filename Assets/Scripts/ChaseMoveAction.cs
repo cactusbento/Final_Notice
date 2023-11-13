@@ -10,6 +10,11 @@ public class ChaseMoveAction : EnemyAction
     public override IEnumerator Use(Transform parent)
     {
 
+        // running animation
+
+
+
+
         // setting up AIPath
         aiPath = parent.GetComponent<AIPath>();
         if(aiPath == null)
@@ -22,7 +27,8 @@ public class ChaseMoveAction : EnemyAction
         // acquiring a target
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         if (players.Length > 0)
-        {  
+        {
+
             GameObject target = players[0];
             float minDistance = -1;
             // getting the nearest player as a target
@@ -44,11 +50,32 @@ public class ChaseMoveAction : EnemyAction
             }
             aiPath.canMove = true;
             aiPath.destination = target.transform.position;
+            // starting animation
+            Animator animator = parent.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.SetBool("Moving", true);
+                Vector3 direction = target.transform.position - parent.transform.position;
+                animator.SetFloat("MoveX", direction.x);
+                animator.SetFloat("MoveY", direction.y);
+            }
+            else
+            {
+                Debug.LogError("ChaseMoveAction.Use: No animator on parent parameter");
+            }
+            
+
+
 
             state = EnemyAction.ActionState.Active;
             yield return new WaitForSeconds(duration);
             aiPath.canMove = false;
 
+            // ending animation
+            if (animator != null)
+            {
+                animator.SetBool("Moving", false);
+            }
 
             // doing cooldown
             if (cooldown > 0)

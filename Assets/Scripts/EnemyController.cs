@@ -9,6 +9,7 @@ public abstract class EnemyController : MonoBehaviour
     [SerializeField] public float currentHealth = 100f;
     [SerializeField] public bool pushable = false;
     [SerializeField] public List<EnemyAction> enemyActions;
+    [SerializeField] public Animator animator;
 
     public void TakeDamage(float damage)
     {

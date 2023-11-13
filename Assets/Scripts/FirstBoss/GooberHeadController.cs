@@ -18,14 +18,13 @@ public class GooberHeadController : EnemyController
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         elapsedTime += Time.deltaTime;
         if (elapsedTime > waitBeforeAction)
         {
             elapsedTime = 0;
-            foreach(int actionToTest in actionsToTest)
+            foreach (int actionToTest in actionsToTest)
             {
                 if (enemyActions[actionToTest].state == EnemyAction.ActionState.Ready)
                 {
