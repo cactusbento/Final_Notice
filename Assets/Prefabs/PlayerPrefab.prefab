@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 2112656100658298508}
   - component: {fileID: 5660409930935779217}
   - component: {fileID: 6808927842304306376}
+  - component: {fileID: 4616880317757788437}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -143,9 +144,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -614319209
+  m_SortingLayer: 1
+  m_SortingOrder: 1000
   m_Sprite: {fileID: 21300000, guid: de2f056614b1c5744ac4daa679e206e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -174,6 +175,7 @@ MonoBehaviour:
   acceleration: 10
   deccelerationScalar: 10
   topSpeed: 100
+  minSpeed: 0.1
   aimInputThreshold: 0.1
   reticleContainer: {fileID: 8995955717960978779}
   reticle: {fileID: 8001316563125649250}
@@ -184,7 +186,9 @@ MonoBehaviour:
   parryCollider: {fileID: 292788201212220816}
   abilityRate: 4
   relic: {fileID: 0}
+  animator: {fileID: 4616880317757788437}
   isGhost: 0
+  spriteRenderer: {fileID: 0}
 --- !u!114 &2112656100658298508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,9 +278,25 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 48fb8dd2-8db0-4faf-aed1-d270762fbd0d
     m_ActionName: Gameplay/Ability[/XInputControllerWindows/buttonNorth,/XInputControllerWindows/buttonWest,/XInputControllerWindows/leftTrigger,/XInputControllerWindows/leftShoulder,/Keyboard/leftShift]
-  m_NeverAutoSwitchControlSchemes: 0
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 35df7c11-3d92-4434-a770-335a7e05c708
+    m_ActionName: Menu/Select[/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 70b52eb4-075e-4fd6-9cca-e033f16c3749
+    m_ActionName: Menu/Back[/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 657718c0-987c-48d3-b4f8-6bcf8ace4082
+    m_ActionName: Menu/Direction[/XInputControllerWindows/leftStick,/XInputControllerWindows/dpad/up,/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/left,/XInputControllerWindows/dpad/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5879f47d-10ce-4664-a67b-008d30b8ed36
+    m_ActionName: Menu/Start[/XInputControllerWindows/start]
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Player
-  m_DefaultActionMap: Default
+  m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!50 &5660409930935779217
@@ -351,6 +371,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9375, y: 1.25}
   m_EdgeRadius: 0
+--- !u!95 &4616880317757788437
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5348645584178531881}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6069354862213543149
 GameObject:
   m_ObjectHideFlags: 0

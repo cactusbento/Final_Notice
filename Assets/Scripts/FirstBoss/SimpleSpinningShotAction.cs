@@ -12,42 +12,45 @@ public class SimpleSpinningShotAction : EnemyAction
 
     public override IEnumerator Use(Transform parent)
     {
-        Debug.Log("0");
-        float elapsedTimeDuration = 0;
-        float baseDegree = 0;
-
-        Debug.Log("1");
         state = EnemyAction.ActionState.Active;
-        while (elapsedTimeDuration < duration) {
-            // updating times
-            elapsedTimeDuration += Time.deltaTime;
-            Debug.Log($"Elapsed Time in Projectiles {elapsedTimeDuration}");
 
-            // shooting radial shot
-            Debug.Log("2");
-            float degreeIncrement = 360 / projectiles.Count;
-            float currDegree = baseDegree;
-            Debug.Log("Firing Shots");
-            foreach (GameObject projectile in projectiles) {
-                // Check if real projectile
-                ProjectileController p = projectile.GetComponent<ProjectileController>();
-                if (p)
+        float elapsedTime = 0;
+        float shotTimer = 0;
+
+        float baseDegree = 0;
+   
+        while (elapsedTime < duration) {
+            // updating times
+            elapsedTime += Time.deltaTime;
+            shotTimer += Time.deltaTime;
+
+            if (shotTimer > (1 / shotsPerSecond))
+            {
+                shotTimer = 0;
+                // shooting radial shot
+                float degreeIncrement = 360 / projectiles.Count;
+                float currDegree = baseDegree;
+                foreach (GameObject projectile in projectiles)
                 {
-                    // Setting the new direction of the projectile
-                    p.direction = RotateVector(Vector3.up, currDegree);
-                    currDegree += degreeIncrement;
-                    SpawnProjectile(projectile, parent);
+                    // Check if real projectile
+                    ProjectileController p = projectile.GetComponent<ProjectileController>();
+                    if (p)
+                    {
+                        // Setting the new direction of the projectile
+                        p.direction = RotateVector(Vector3.up, currDegree);
+                        currDegree += degreeIncrement;
+                        SpawnProjectile(projectile, parent);
+                    }
+                    else
+                    {
+                        Debug.LogError($"SimpleSpinningShotAction.Use: Projectile on {parent.name} is not a real projectile");
+                    }
                 }
-                else
-                {
-                    Debug.LogError($"Projectile on {parent.name} is not a real projectile");
-                }
+                baseDegree += degreeChangePerShot;
             }
-                
-            // increment base degree -> next shot is at slighlty different agnl
-            baseDegree += degreeChangePerShot;
-            Debug.Log($"Waiting {1f / shotsPerSecond}s");
-            yield return new WaitForSeconds(1f / shotsPerSecond);
+
+
+            yield return new WaitForEndOfFrame();
         }
 
         // doing cooldown
@@ -59,7 +62,6 @@ public class SimpleSpinningShotAction : EnemyAction
         
         // readying and exiting
         state = EnemyAction.ActionState.Ready;
-        Debug.Log("Exiting Spinning Projectiles");
         yield break;
     }
 }

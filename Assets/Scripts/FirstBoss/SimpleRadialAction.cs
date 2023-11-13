@@ -28,6 +28,16 @@ public class SimpleRadialAction : EnemyAction
                 Debug.LogError($"Projectile on {parent.name} is not a real projectile");
             }
         }
+
+        // doing cooldown
+        if (cooldown > 0)
+        {
+            state = EnemyAction.ActionState.CoolDown;
+            yield return new WaitForSeconds(cooldown);
+        }
+
+        // readying and exiting
+        state = EnemyAction.ActionState.Ready;
         yield break;
     }
 }

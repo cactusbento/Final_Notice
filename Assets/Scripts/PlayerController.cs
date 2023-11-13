@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -8,11 +9,13 @@ public class PlayerController : MonoBehaviour
     [Header("Stats")]
     [SerializeField] float currentHealth;
     [SerializeField] float maxHealth = 10f;
+    public int playerNumber;
 
     [Header("Movement")]
     [SerializeField] float acceleration = 1f;
     [SerializeField] float deccelerationScalar = 1f;
     [SerializeField] float topSpeed = 5f;
+    [SerializeField] float minSpeed = 0.05f;
 
     Vector2 movementInput;
     Rigidbody2D rb;
@@ -50,8 +53,14 @@ public class PlayerController : MonoBehaviour
     float nextTimeToAbility;
 
     [Header("Visuals")]
+    public Animator animator;
     public bool isGhost = false;
-    SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
+
+    [Header("UI")]
+    public HealthBar healthBar;
+
+    PlayerManager manager;
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +77,11 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = transform.GetComponent<SpriteRenderer>();
 
         relic = reticleContainer.Find("RelicContainer").GetChild(0).GetComponent<Relic>();
+
+        manager = GameObject.Find("PlayerInputManager").GetComponent<PlayerManager>();
+        manager.PlayerJoined(this);
+
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -83,6 +97,11 @@ public class PlayerController : MonoBehaviour
             moveForce = rb.mass * acceleration * movementInput;
         }
         rb.AddForce(moveForce);
+
+        //animations
+        animator.SetBool("Moving", rb.velocity.magnitude > minSpeed);
+        animator.SetFloat("MoveX", rb.velocity.x);
+        animator.SetFloat("MoveY", rb.velocity.y);
 
         //aiming
         if (aimInput.magnitude > aimInputThreshold)
@@ -107,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
     void Parry()
     {
-        Debug.Log("Parry.");
+        //Debug.Log("Parry.");
 
         parryTarget = null;
         ColliderFindParryTarget();
@@ -204,7 +223,7 @@ public class PlayerController : MonoBehaviour
         // is a player that isn't the current
         bool validPlayer = col.transform.tag == "Player" && col.gameObject.GetInstanceID() != gameObject.GetInstanceID();
 
-        Debug.Log($"PlayerController.IsParryableObject: parryableProjectile={parryableProjectile} pushableEnemy={pushableEnemy} pushableObject={pushableObject} validPlayer={validPlayer}");
+        //Debug.Log($"PlayerController.IsParryableObject: parryableProjectile={parryableProjectile} pushableEnemy={pushableEnemy} pushableObject={pushableObject} validPlayer={validPlayer}");
         return parryableProjectile || pushableEnemy || pushableObject|| validPlayer;
     }
 
@@ -246,7 +265,10 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        if(currentHealth <= 0)
+
+        healthBar.SetHealth(currentHealth);
+
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -255,10 +277,13 @@ public class PlayerController : MonoBehaviour
     public void Heal(float heal)
     {
         currentHealth += heal;
+
         if(currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
+
+        healthBar.SetHealth(currentHealth);
     }
 
     void Die()
@@ -268,6 +293,8 @@ public class PlayerController : MonoBehaviour
         isGhost = true;
         //change sprite
         spriteRenderer.color = new Color(100f, 0f, 0f, 0.5f);
+
+        manager.PlayerDied();
     }
 
     public Vector3 GetAimDirection()

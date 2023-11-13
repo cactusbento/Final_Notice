@@ -17,6 +17,7 @@ public class Bomb : Relic
     void Start()
     {
         bomb = transform.GetChild(0);
+        transform.DetachChildren();
 
         Transform temp = transform.parent;
         do
@@ -31,7 +32,8 @@ public class Bomb : Relic
     {
         if (bomb.gameObject.activeSelf)
         {
-            bomb.position = bombPosition;
+            //bomb.position = bombPosition;
+            //bomb.rotation = Quaternion.identity;
 
             if (Time.time >= timeToExplode)
             {
@@ -71,7 +73,7 @@ public class Bomb : Relic
         {
             bomb.gameObject.SetActive(true);
             timeToExplode = Time.time + fuseLength;
-            bombPosition = player.transform.position + (player.GetAimDirection() * spawnDistance);
+            bomb.position = player.transform.position + (player.GetAimDirection() * spawnDistance);
         }
         else
         {

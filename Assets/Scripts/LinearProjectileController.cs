@@ -6,7 +6,8 @@ public class LinearProjectileController : ProjectileController
 {
     public override void FollowPath()
     {
-        transform.position = transform.position + (direction * speed);
+   
+        transform.position = transform.position + (direction.normalized * speed);
     }
 
     // Start is called before the first frame update
@@ -21,8 +22,15 @@ public class LinearProjectileController : ProjectileController
         base.Run();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        base.Collide(collision);
+        //Debug.Log("LinearProjectileController.OnTriggerEnter2D: called");
+        base.Collide(collider);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Debug.Log("LinearProjectileController.OnCollisionEnter2D: called");
+        base.Collide(collision.collider);
     }
 }
