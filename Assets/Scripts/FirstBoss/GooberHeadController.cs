@@ -14,8 +14,6 @@ public class GooberHeadController : EnemyController
     void Start()
     {
         base.SetUp();
-
-
     }
 
     private void FixedUpdate()

@@ -2,7 +2,7 @@
     "name": "PlayerControls",
     "maps": [
         {
-            "name": "Default",
+            "name": "Gameplay",
             "id": "0138d9f3-5288-4f5c-ad43-acc35ed6f5f7",
             "actions": [
                 {
@@ -282,6 +282,149 @@
                     "processors": "",
                     "groups": "Player",
                     "action": "Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Menu",
+            "id": "4f24d1ec-25dc-4a66-adc4-468a516bb2fb",
+            "actions": [
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "35df7c11-3d92-4434-a770-335a7e05c708",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Back",
+                    "type": "Button",
+                    "id": "70b52eb4-075e-4fd6-9cca-e033f16c3749",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Direction",
+                    "type": "PassThrough",
+                    "id": "657718c0-987c-48d3-b4f8-6bcf8ace4082",
+                    "expectedControlType": "Stick",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Start",
+                    "type": "Button",
+                    "id": "5879f47d-10ce-4664-a67b-008d30b8ed36",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "342f3431-372d-4af3-a5e9-24de3ddbd82d",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "810c5a38-2447-44f4-86fd-e8d9f24dd5ec",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "088bd0ee-0f63-4919-b8bc-d55371e03ea2",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "309c0e2d-95a2-498f-b5a8-7c2406a115b6",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "ddb68b82-8d82-4a4e-8ca1-9a72bf599edf",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "e7e79933-edbd-4c05-b8d4-9340befeebbc",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "b5cbe3e0-a9af-4069-b133-8c8010eef657",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Direction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "1e7e0f17-346c-4d94-ab87-be0fe2399d36",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "296e9a78-6dbe-44fb-b3e4-cc9a308f4acc",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Start",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

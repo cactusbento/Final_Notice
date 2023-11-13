@@ -278,9 +278,25 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 48fb8dd2-8db0-4faf-aed1-d270762fbd0d
     m_ActionName: Gameplay/Ability[/XInputControllerWindows/buttonNorth,/XInputControllerWindows/buttonWest,/XInputControllerWindows/leftTrigger,/XInputControllerWindows/leftShoulder,/Keyboard/leftShift]
-  m_NeverAutoSwitchControlSchemes: 0
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 35df7c11-3d92-4434-a770-335a7e05c708
+    m_ActionName: Menu/Select[/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 70b52eb4-075e-4fd6-9cca-e033f16c3749
+    m_ActionName: Menu/Back[/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 657718c0-987c-48d3-b4f8-6bcf8ace4082
+    m_ActionName: Menu/Direction[/XInputControllerWindows/leftStick,/XInputControllerWindows/dpad/up,/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/left,/XInputControllerWindows/dpad/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5879f47d-10ce-4664-a67b-008d30b8ed36
+    m_ActionName: Menu/Start[/XInputControllerWindows/start]
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Player
-  m_DefaultActionMap: Default
+  m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!50 &5660409930935779217
