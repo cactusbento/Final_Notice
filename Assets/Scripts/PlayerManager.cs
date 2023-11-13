@@ -42,7 +42,7 @@ public class PlayerManager : MonoBehaviour
     {
         deadPlayerCount++;
 
-        if(deadPlayerCount == players.Count)
+        if(deadPlayerCount == players.Count && deadBossCount == 0)
         {
             //lose screen
             loseScreen.gameObject.SetActive(true);
@@ -53,7 +53,7 @@ public class PlayerManager : MonoBehaviour
     {
         deadBossCount++;
 
-        if(deadBossCount == 1)
+        if(deadBossCount == 1 && deadPlayerCount != 0)
         {
             //win screen
             winScreen.gameObject.SetActive(true);

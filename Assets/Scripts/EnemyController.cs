@@ -87,9 +87,4 @@ public abstract class EnemyController : MonoBehaviour
         }
         return true;
     }
-
-    public void SetUp()
-    {
-
-    }
 }
