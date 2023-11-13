@@ -10,10 +10,18 @@ public abstract class EnemyController : MonoBehaviour
     [SerializeField] public bool pushable = false;
     [SerializeField] public List<EnemyAction> enemyActions;
     [SerializeField] public Animator animator;
+    [SerializeField] public bool isBoss = false;
+    [SerializeField] private HealthBar healthBar;
 
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+
+        if(healthBar != null)
+        {
+            healthBar.SetHealth(currentHealth);
+        }
+
         if (currentHealth < 0)
         {
             Die();
@@ -23,8 +31,13 @@ public abstract class EnemyController : MonoBehaviour
     public void Die()
     {
         Debug.Log("EnemyController.Die: Called.");
-        gameObject.SetActive(false);
 
+        if (isBoss)
+        {
+            PlayerManager manager = GameObject.Find("PlayerInputManager").GetComponent<PlayerManager>();
+            manager.BossDied();
+        }
+        gameObject.SetActive(false);
     }
 
     Vector3 GetTarget(float maxRange, bool isPredictive)
@@ -39,5 +52,14 @@ public abstract class EnemyController : MonoBehaviour
         }
 
         return Vector3.zero;
+    }
+
+    public void SetUp()
+    {
+        if (isBoss)
+        {
+            healthBar = GameObject.Find("BossHealthBar").GetComponent<HealthBar>();
+            healthBar.SetMaxHealth(maxHealth);
+        }
     }
 }

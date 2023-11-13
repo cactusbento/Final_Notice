@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [Header("Stats")]
     [SerializeField] float currentHealth;
     [SerializeField] float maxHealth = 10f;
+    public int playerNumber;
 
     [Header("Movement")]
     [SerializeField] float acceleration = 1f;
@@ -55,6 +57,11 @@ public class PlayerController : MonoBehaviour
     public bool isGhost = false;
     public SpriteRenderer spriteRenderer;
 
+    [Header("UI")]
+    public HealthBar healthBar;
+
+    PlayerManager manager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,7 +78,10 @@ public class PlayerController : MonoBehaviour
 
         relic = reticleContainer.Find("RelicContainer").GetChild(0).GetComponent<Relic>();
 
-        GameObject.Find("PlayerManager").GetComponent<PlayerManager>().PlayerJoined(this);
+        manager = GameObject.Find("PlayerInputManager").GetComponent<PlayerManager>();
+        manager.PlayerJoined(this);
+
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -255,7 +265,10 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        if(currentHealth <= 0)
+
+        healthBar.SetHealth(currentHealth);
+
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -264,10 +277,13 @@ public class PlayerController : MonoBehaviour
     public void Heal(float heal)
     {
         currentHealth += heal;
+
         if(currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
+
+        healthBar.SetHealth(currentHealth);
     }
 
     void Die()
@@ -277,6 +293,8 @@ public class PlayerController : MonoBehaviour
         isGhost = true;
         //change sprite
         spriteRenderer.color = new Color(100f, 0f, 0f, 0.5f);
+
+        manager.PlayerDied();
     }
 
     public Vector3 GetAimDirection()

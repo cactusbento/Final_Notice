@@ -12,6 +12,7 @@ public class GooberHeadController : EnemyController
     // Start is called before the first frame update
     void Start()
     {
+        base.SetUp();
         // Setting All Actions to ready State
         foreach (EnemyAction action in enemyActions) {
             action.state = EnemyAction.ActionState.Ready;
