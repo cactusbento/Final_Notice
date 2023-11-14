@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEditor.Animations;
 
 public class PlayerManager : MonoBehaviour
 {
     [Header("Players")]
-    [SerializeField] List<AnimatorController> playerAnimatorControllers;
+    [SerializeField] List<RuntimeAnimatorController> playerAnimatorControllers;
     [SerializeField] List<PlayerController> players;
 
     [Header("UI")]
@@ -53,7 +52,7 @@ public class PlayerManager : MonoBehaviour
     {
         deadBossCount++;
 
-        if(deadBossCount == 1 && deadPlayerCount != 0)
+        if(deadBossCount == 1 && deadPlayerCount < players.Count)
         {
             //win screen
             winScreen.gameObject.SetActive(true);

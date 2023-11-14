@@ -26,6 +26,5 @@ public class StartMenu : MonoBehaviour
     {
         Debug.Log("QUIT");
         Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false;
     }
 }
