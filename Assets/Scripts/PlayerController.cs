@@ -147,6 +147,7 @@ public class PlayerController : MonoBehaviour
             nextTimeToAbility = Time.time + 1f / abilityRate;
             Ability();
         }
+
     }
 
     void Parry()

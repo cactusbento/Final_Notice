@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 399070941459468580}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -278,6 +278,8 @@ MonoBehaviour:
   hatRenderer: {fileID: 8182126436351076800}
   healthBar: {fileID: 0}
   currHat: {fileID: 0}
+  hatOption: {fileID: 0}
+  equipDelay: 1
 --- !u!114 &2112656100658298508
 MonoBehaviour:
   m_ObjectHideFlags: 0
