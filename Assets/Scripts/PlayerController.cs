@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,14 +8,14 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] float currentHealth;
-    [SerializeField] float maxHealth = 10f;
+    [SerializeField] public float currentHealth;
+    [SerializeField] public float maxHealth = 10f;
     public int playerNumber;
 
     [Header("Movement")]
-    [SerializeField] float acceleration = 1f;
-    [SerializeField] float deccelerationScalar = 1f;
-    [SerializeField] float topSpeed = 5f;
+    [SerializeField] public float acceleration = 1f;
+    [SerializeField] public float deccelerationScalar = 1f;
+    [SerializeField] public float topSpeed = 5f;
     [SerializeField] float minSpeed = 0.05f;
 
     Vector2 movementInput;
@@ -56,15 +57,32 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public bool isGhost = false;
     public SpriteRenderer spriteRenderer;
+    public SpriteRenderer hatRenderer;
 
     [Header("UI")]
     public HealthBar healthBar;
 
+    [Header("Equipment")]
+    public HatController currHat;
+    public HatController hatOption;
+    public float equipDelay = 1;
+    private float nextTimeToEquip = 0;
+
     PlayerManager manager;
+
+    private void Awake()
+    {
+
+        nextTimeToParry = Time.time + 1f / parryRate * 2;
+
+        nextTimeToEquip = Time.time + equipDelay;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        hatRenderer.gameObject.SetActive(false);
+
         currentHealth = maxHealth;
 
         rb = transform.GetComponent<Rigidbody2D>();
@@ -109,8 +127,15 @@ public class PlayerController : MonoBehaviour
             reticleContainer.up = aimInput;
         }
 
-        //parry
-        if (!isGhost && parryInput && Time.time >= nextTimeToParry)
+        // equipping hat
+        if (parryInput && hatOption != null && Time.time >= nextTimeToEquip)
+        {
+            nextTimeToEquip = Time.time + equipDelay;
+            EquipHat();
+        }
+
+        // parry
+        else if (!isGhost && parryInput && Time.time >= nextTimeToParry)
         {
             nextTimeToParry = Time.time + 1f / parryRate;
             Parry();
@@ -314,6 +339,40 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawRay(transform.position, Quaternion.Euler(0f, 0f, parryAngle) * reticleContainer.up * parryRange);
     }
 
+    public void ControlHatOptions(Collider2D collision, bool add)
+    {
+        HatController hatOption;
+        if (collision.transform.TryGetComponent<HatController>(out hatOption))
+        {
+            if (add && hatOption != null)
+            {
+                this.hatOption = hatOption;
+            }
+            else
+            {
+                this.hatOption = null;
+            }
+        }
+    }
+
+    private void EquipHat()
+    {
+        if (currHat != null)
+        {
+            currHat.Unequip();
+        }
+        hatOption.Equip(this);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        ControlHatOptions(collision, true);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        ControlHatOptions(collision, false);
+    }
 
     public void OnMove(InputAction.CallbackContext ctx) => movementInput = ctx.ReadValue<Vector2>();
 
