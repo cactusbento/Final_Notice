@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public bool isGhost = false;
     public SpriteRenderer spriteRenderer;
+    public Color color;
 
     [Header("UI")]
     public HealthBar healthBar;
@@ -63,9 +64,10 @@ public class PlayerController : MonoBehaviour
     PlayerManager manager;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        currentHealth = maxHealth;
+        manager = GameObject.Find("PlayerInputManager").GetComponent<PlayerManager>();
+        manager.PlayerJoined(this);
 
         rb = transform.GetComponent<Rigidbody2D>();
 
@@ -78,9 +80,18 @@ public class PlayerController : MonoBehaviour
 
         relic = reticleContainer.Find("RelicContainer").GetChild(0).GetComponent<Relic>();
 
-        manager = GameObject.Find("PlayerInputManager").GetComponent<PlayerManager>();
-        manager.PlayerJoined(this);
+        GradientColorKey[] colors = new GradientColorKey[2];
+        colors[0] = new GradientColorKey(color, 0f);
+        colors[1] = new GradientColorKey(color, 1f);
 
+        GradientAlphaKey[] alphas = new GradientAlphaKey[2];
+        alphas[0] = new GradientAlphaKey(1f, 0f);
+        alphas[1] = new GradientAlphaKey(1f, 1f);
+
+        healthBar.gradient.SetKeys(colors, alphas);
+        reticleContainer.Find("ReticleSprite").GetComponent<SpriteRenderer>().color = color;
+
+        currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
 
