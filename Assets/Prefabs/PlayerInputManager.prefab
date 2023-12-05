@@ -95,3 +95,11 @@ MonoBehaviour:
   - {fileID: 9100000, guid: 53a1d3ec402e93841af63cbf05077154, type: 2}
   - {fileID: 9100000, guid: 47600476aa7db1547b177a0de58d01d4, type: 2}
   players: []
+  playerHealthBars: []
+  playerColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  winScreen: {fileID: 0}
+  loseScreen: {fileID: 0}

@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] List<HealthBar> playerHealthBars;
+    [SerializeField] List<Color> playerColors;
     [SerializeField] Image winScreen;
     [SerializeField] Image loseScreen;
 
@@ -23,14 +24,16 @@ public class PlayerManager : MonoBehaviour
         winScreen.gameObject.SetActive(false); 
         loseScreen.gameObject.SetActive(false);
     }
- 
+
     public void PlayerJoined(PlayerController newPlayer)
     {
         players.Add(newPlayer);
         newPlayer.playerNumber = players.IndexOf(newPlayer) + 1;
         newPlayer.transform.SetParent(transform, false);
         newPlayer.animator.runtimeAnimatorController = playerAnimatorControllers[newPlayer.playerNumber - 1];
-        
+
+        newPlayer.color = playerColors[newPlayer.playerNumber - 1];
+
         HealthBar healthBar = playerHealthBars[newPlayer.playerNumber - 1];
         healthBar.gameObject.SetActive(true);
         healthBar.GetComponent<UITrackPlayer>().target = newPlayer.transform;
